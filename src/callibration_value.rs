@@ -20,8 +20,8 @@ impl IntStringMap {
     }
 }
 
-fn find_first_number_in_string(value: &String) -> Option<char> {
-    value.chars().find(|c| c.is_digit(10))
+fn find_first_number_in_string(value: &str) -> Option<char> {
+    value.chars().find(|c| c.is_ascii_digit())
 }
 
 fn find_first_number_or_string_number_in_string(value: &String, reverse: bool) -> Option<char> {
@@ -30,9 +30,7 @@ fn find_first_number_or_string_number_in_string(value: &String, reverse: bool) -
     if reverse {
         value = value.chars().rev().collect::<String>();
     }
-    let int_value_position = value.chars().position(|c| c.is_digit(10));
-
-    // println!("pos: {:?}, reverse: {}", int_value_position, reverse);
+    let int_value_position = value.chars().position(|c| c.is_ascii_digit());
 
     let int_string_map: Vec<IntStringMap> = vec![
         IntStringMap::new("one".to_string(), '1'),
@@ -66,12 +64,10 @@ fn find_first_number_or_string_number_in_string(value: &String, reverse: bool) -
 
     if let Some(pos) = int_value_position {
         if pos < lowest_position {
-            result = value.chars().find(|c| c.is_digit(10));
+            result = value.chars().find(|c| c.is_ascii_digit());
         }
     }
     
-    println!("final: {:?}", result);
-
     result
 }
 
