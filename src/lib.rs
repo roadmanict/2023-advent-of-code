@@ -1,4 +1,5 @@
 pub mod callibration_value;
+pub mod cube_game;
 
 pub fn add(left: usize, right: usize) -> usize {
     left + right
