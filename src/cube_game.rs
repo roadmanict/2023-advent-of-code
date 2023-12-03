@@ -45,7 +45,7 @@ impl CubeGame {
     }
 
     pub fn power(&self) -> usize {
-        return self.max_green * self.max_blue * self.max_red;
+        self.max_green * self.max_blue * self.max_red
     }
 }
 
