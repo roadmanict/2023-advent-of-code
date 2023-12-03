@@ -5,11 +5,43 @@ use thiserror::Error;
 #[derive(Debug, PartialEq)]
 struct CubeGame {
     sets: Vec<CubeGameSet>,
+    total_red: usize,
+    total_blue: usize,
+    total_green: usize,
 }
 
 impl CubeGame {
     fn new(sets: Vec<CubeGameSet>) -> Self {
-        Self { sets }
+        let total_red = sets
+            .iter()
+            .map(|s| &s.draws)
+            .flatten()
+            .filter(|d| d.color == CubeGameCubeColor::Red)
+            .map(|d| d.amount)
+            .sum();
+
+        let total_blue = sets
+            .iter()
+            .map(|s| &s.draws)
+            .flatten()
+            .filter(|d| d.color == CubeGameCubeColor::Blue)
+            .map(|d| d.amount)
+            .sum();
+
+        let total_green = sets
+            .iter()
+            .map(|s| &s.draws)
+            .flatten()
+            .filter(|d| d.color == CubeGameCubeColor::Green)
+            .map(|d| d.amount)
+            .sum();
+
+        Self {
+            sets,
+            total_red,
+            total_blue,
+            total_green,
+        }
     }
 }
 
@@ -117,7 +149,11 @@ mod tests {
                 CubeGameDraw::new(CubeGameCubeColor::Blue, 3),
                 CubeGameDraw::new(CubeGameCubeColor::Red, 4)
             ])
-        )
+        );
+
+        assert_eq!(game.total_red, 5);
+        assert_eq!(game.total_blue, 9);
+        assert_eq!(game.total_green, 4);
     }
 
     #[test]
