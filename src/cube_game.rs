@@ -43,6 +43,10 @@ impl CubeGame {
             max_green,
         }
     }
+
+    pub fn power(&self) -> usize {
+        return self.max_green * self.max_blue * self.max_red;
+    }
 }
 
 #[derive(Debug, Error)]

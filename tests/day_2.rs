@@ -36,4 +36,8 @@ fn test_day_1_part_1() {
         .sum::<usize>();
 
     assert_eq!(total_indexes_of_valid_games, 2006);
+
+    let sum_power_of_games = games.iter().map(|g| g.power()).sum::<usize>();
+
+    assert_eq!(sum_power_of_games, 100);
 }
