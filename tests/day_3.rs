@@ -9,7 +9,7 @@ fn test_day_3_part_1() {
     let lines = file.lines().collect::<Vec<_>>(); //[0..2].to_owned();
     let total = sum_lines(&lines);
 
-    assert_eq!(total, 100);
+    assert_eq!(total, 554003);
 }
 
 //#[test]
@@ -40,22 +40,11 @@ fn sum_lines(lines: &Vec<&str>) -> usize {
                 continue;
             }
             index += split.len();
-            println!(
-                "line {}, index {}, {}, len {}, {}",
-                i + 1,
-                index + 1,
-                split,
-                split.len(),
-                find_adjacent_symbol(&lines, &i, index, split.len())
-            );
 
             if find_adjacent_symbol(&lines, &i, index, split.len()) {
-                println!("{}", split);
                 total += split.parse::<usize>().expect("Number should be parsed");
-                //println!("split: {}, column: {}", split, index);
             }
 
-            println!();
             index += 1;
         }
     }
@@ -72,7 +61,6 @@ fn find_adjacent_symbol(lines: &Vec<&str>, line: &usize, column: usize, len: usi
     };
 
     let subset = &lines[start..end];
-    println!("start {}, end {}, lines {}", start, end, subset.len());
 
     for line in subset.iter() {
         let start = column - len;
@@ -83,14 +71,11 @@ fn find_adjacent_symbol(lines: &Vec<&str>, line: &usize, column: usize, len: usi
         } else {
             column + 1
         };
-        println!("columns: {}, {}, {}", column, start, end);
 
         let col_subset = &line.chars().collect::<Vec<_>>()[start..end];
-        println!("{:?}", col_subset);
 
         for char in col_subset {
             if SYMBOLS.contains(char) {
-                // println!("Contains!!");
                 return true;
             }
         }
