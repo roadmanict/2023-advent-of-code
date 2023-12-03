@@ -14,8 +14,7 @@ impl CubeGame {
     fn new(sets: Vec<CubeGameSet>) -> Self {
         let max_red = sets
             .iter()
-            .map(|s| &s.draws)
-            .flatten()
+            .flat_map(|s| &s.draws)
             .filter(|d| d.color == CubeGameCubeColor::Red)
             .map(|d| d.amount)
             .max()
@@ -23,8 +22,7 @@ impl CubeGame {
 
         let max_blue = sets
             .iter()
-            .map(|s| &s.draws)
-            .flatten()
+            .flat_map(|s| &s.draws)
             .filter(|d| d.color == CubeGameCubeColor::Blue)
             .map(|d| d.amount)
             .max()
@@ -32,8 +30,7 @@ impl CubeGame {
 
         let max_green = sets
             .iter()
-            .map(|s| &s.draws)
-            .flatten()
+            .flat_map(|s| &s.draws)
             .filter(|d| d.color == CubeGameCubeColor::Green)
             .map(|d| d.amount)
             .max()
@@ -60,13 +57,13 @@ impl FromStr for CubeGame {
     type Err = CubeGameFromStrError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let (game, draws) = s
+        let (_game, draws) = s
             .split_once(": ")
             .ok_or(CubeGameFromStrError::InvalidInputError)?;
 
         let sets = draws
             .split("; ")
-            .map(|s| CubeGameSet::from_str(s))
+            .map(CubeGameSet::from_str)
             .collect::<Result<Vec<_>, _>>()?;
 
         Ok(CubeGame::new(sets))
@@ -90,7 +87,7 @@ impl FromStr for CubeGameSet {
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let draws = s
             .split(", ")
-            .map(|d| CubeGameDraw::from_str(d))
+            .map(CubeGameDraw::from_str)
             .collect::<Result<Vec<_>, _>>()?;
 
         Ok(CubeGameSet::new(draws))
@@ -121,7 +118,7 @@ impl FromStr for CubeGameDraw {
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
         let (amount, cube_color) = s
-            .split_once(" ")
+            .split_once(' ')
             .ok_or(CubeGameFromStrError::InvalidInputError)?;
 
         let cube_color = match cube_color {

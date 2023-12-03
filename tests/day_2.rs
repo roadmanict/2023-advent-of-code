@@ -8,7 +8,7 @@ fn test_day_1_part_1() {
 
     let mut games: Vec<CubeGame> = vec![];
 
-    for (i, line) in file.lines().enumerate() {
+    for (_i, line) in file.lines().enumerate() {
         if line.is_empty() {
             continue;
         }
@@ -27,7 +27,7 @@ fn test_day_1_part_1() {
     let total_indexes_of_valid_games = games
         .iter()
         .enumerate()
-        .filter(|(i, g)| {
+        .filter(|(_i, g)| {
             let invalid = g.max_red > 12 || g.max_blue > 14 || g.max_green > 13;
 
             !invalid
