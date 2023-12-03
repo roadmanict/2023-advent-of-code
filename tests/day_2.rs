@@ -39,5 +39,5 @@ fn test_day_1_part_1() {
 
     let sum_power_of_games = games.iter().map(|g| g.power()).sum::<usize>();
 
-    assert_eq!(sum_power_of_games, 100);
+    assert_eq!(sum_power_of_games, 84911);
 }
