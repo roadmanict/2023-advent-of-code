@@ -3,44 +3,47 @@ use std::{num::ParseIntError, str::FromStr};
 use thiserror::Error;
 
 #[derive(Debug, PartialEq)]
-struct CubeGame {
+pub struct CubeGame {
     sets: Vec<CubeGameSet>,
-    total_red: usize,
-    total_blue: usize,
-    total_green: usize,
+    pub max_red: usize,
+    pub max_blue: usize,
+    pub max_green: usize,
 }
 
 impl CubeGame {
     fn new(sets: Vec<CubeGameSet>) -> Self {
-        let total_red = sets
+        let max_red = sets
             .iter()
             .map(|s| &s.draws)
             .flatten()
             .filter(|d| d.color == CubeGameCubeColor::Red)
             .map(|d| d.amount)
-            .sum();
+            .max()
+            .unwrap_or(0);
 
-        let total_blue = sets
+        let max_blue = sets
             .iter()
             .map(|s| &s.draws)
             .flatten()
             .filter(|d| d.color == CubeGameCubeColor::Blue)
             .map(|d| d.amount)
-            .sum();
+            .max()
+            .unwrap_or(0);
 
-        let total_green = sets
+        let max_green = sets
             .iter()
             .map(|s| &s.draws)
             .flatten()
             .filter(|d| d.color == CubeGameCubeColor::Green)
             .map(|d| d.amount)
-            .sum();
+            .max()
+            .unwrap_or(0);
 
         Self {
             sets,
-            total_red,
-            total_blue,
-            total_green,
+            max_red,
+            max_blue,
+            max_green,
         }
     }
 }
@@ -151,9 +154,37 @@ mod tests {
             ])
         );
 
-        assert_eq!(game.total_red, 5);
-        assert_eq!(game.total_blue, 9);
-        assert_eq!(game.total_green, 4);
+        assert_eq!(game.max_red, 4);
+        assert_eq!(game.max_blue, 6);
+        assert_eq!(game.max_green, 2);
+    }
+
+    #[test]
+    fn test_cube_game_2() {
+        let game = CubeGame::from_str("Game 76: 8 green, 6 blue, 5 red; 1 red, 2 blue, 9 green; 7 red, 9 green; 5 green, 1 blue, 11 red")
+            .expect("Should parse input");
+
+        assert_eq!(game.max_red, 11);
+        assert_eq!(game.max_blue, 6);
+        assert_eq!(game.max_green, 9);
+    }
+
+    #[test]
+    fn test_cube_game() {
+        let game = CubeGame::from_str("Game 1: 10 green, 5 blue; 1 red, 9 green, 10 blue; 5 blue, 6 green, 2 red; 7 green, 9 blue, 1 red; 2 red, 10 blue, 10 green; 7 blue, 1 red")
+            .expect("Should parse input");
+
+        assert_eq!(
+            game.sets[0],
+            CubeGameSet::new(vec![
+                CubeGameDraw::new(CubeGameCubeColor::Green, 10),
+                CubeGameDraw::new(CubeGameCubeColor::Blue, 5),
+            ])
+        );
+
+        assert_eq!(game.max_red, 2);
+        assert_eq!(game.max_blue, 10);
+        assert_eq!(game.max_green, 10);
     }
 
     #[test]
