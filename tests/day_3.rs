@@ -41,7 +41,7 @@ fn sum_lines(lines: &Vec<&str>) -> usize {
             }
             index += split.len();
 
-            if find_adjacent_symbol(&lines, &i, index, split.len()) {
+            if find_adjacent_symbol(lines, &i, index, split.len()) {
                 total += split.parse::<usize>().expect("Number should be parsed");
             }
 
@@ -81,5 +81,5 @@ fn find_adjacent_symbol(lines: &Vec<&str>, line: &usize, column: usize, len: usi
         }
     }
 
-    return false;
+    false
 }
