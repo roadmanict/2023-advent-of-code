@@ -1,6 +1,6 @@
 use std::{fs, str::FromStr};
 
-use adventofcode2023::{cube_game::CubeGame, scratch_card::ScratchCard};
+use adventofcode2023::{scratch_card::ScratchCard};
 
 #[test]
 fn test_day_4_part_1() {

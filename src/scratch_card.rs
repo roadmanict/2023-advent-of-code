@@ -20,7 +20,7 @@ impl ScratchCard {
 
         for number in self.numbers.iter() {
             if self.winning_numbers.contains(number) {
-                if (value == 0) {
+                if value == 0 {
                     value = 1;
                 } else {
                     value *= 2;
@@ -56,7 +56,7 @@ impl FromStr for ScratchCard {
     type Err = ScratchCardFromStrError;
 
     fn from_str(s: &str) -> Result<Self, Self::Err> {
-        let (game_id, numbers) = s
+        let (_game_id, numbers) = s
             .split_once(": ")
             .ok_or(ScratchCardFromStrError::InvalidInputError)?;
         let (winning_numbers, numbers) = numbers
