@@ -21,7 +21,7 @@ impl PartNumber {
     }
 
     fn is_overlapping(&self, r: usize, c: usize) -> bool {
-        return self.positions.contains(&(r, c));
+        self.positions.contains(&(r, c))
     }
 }
 
@@ -41,7 +41,7 @@ fn test_day_3_part_1_v2() {
             if char == '*' {
                 star_positions.push((r, c));
             }
-            if !char.is_digit(10) && char != '.' {
+            if !char.is_ascii_digit() && char != '.' {
                 symbol_position.push((r, c));
 
                 continue;
@@ -60,8 +60,7 @@ fn test_day_3_part_1_v2() {
                 && line
                     .chars()
                     .nth(next_char_pos)
-                    .expect("Char should exist")
-                    .is_digit(10)
+                    .expect("Char should exist").is_ascii_digit()
             {
                 length += 1;
 
@@ -109,10 +108,8 @@ fn test_day_3_part_1_v2() {
 
         for neighbor in neighbors {
             for part_position in part_number_positions.iter() {
-                if part_position.is_overlapping(neighbor.0, neighbor.1) {
-                    if !parts.contains(&part_position.value) {
-                        parts.push(part_position.value);
-                    }
+                if part_position.is_overlapping(neighbor.0, neighbor.1) && !parts.contains(&part_position.value) {
+                    parts.push(part_position.value);
                 }
             }
         }
