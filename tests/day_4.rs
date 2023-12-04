@@ -1,6 +1,6 @@
 use std::{fs, str::FromStr};
 
-use adventofcode2023::{scratch_card::ScratchCard};
+use adventofcode2023::scratch_card::ScratchCard;
 
 #[test]
 fn test_day_4_part_1() {
@@ -8,12 +8,7 @@ fn test_day_4_part_1() {
 
     assert_eq!(file.lines().count(), 215);
 
-    let mut count_cards: Vec<(usize, usize)> = file
-        .lines()
-        .filter(|l| !l.is_empty())
-        .enumerate()
-        .map(|(i, _)| (i, 1))
-        .collect();
+    let mut count_cards: Vec<usize> = vec![1; file.lines().count()];
 
     let mut total: usize = 0;
 
@@ -22,14 +17,12 @@ fn test_day_4_part_1() {
             continue;
         }
 
-        let times = count_cards[i].1;
+        let times = count_cards[i];
         let card = ScratchCard::from_str(line).expect("Should parse input");
         let wins = card.wins();
 
-        for _ in 0..times {
-            for j in 1..wins + 1 {
-                count_cards[i + j].1 += 1;
-            }
+        for j in 1..wins + 1 {
+            count_cards[i + j] += times;
         }
 
         total += card.value();
@@ -41,5 +34,5 @@ fn test_day_4_part_1() {
     assert_eq!(total, 27845);
 
     // part 2
-    assert_eq!(count_cards.iter().map(|(_, n)| n).sum::<usize>(), 9496801);
+    assert_eq!(count_cards.iter().sum::<usize>(), 9496801);
 }
