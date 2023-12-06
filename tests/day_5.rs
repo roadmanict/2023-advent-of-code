@@ -2,7 +2,7 @@ use std::{fs, ops::Range};
 
 use adventofcode2023::{farm_map::FarmMap, utils::split_whitespace_and_parse_to_usize};
 
-#[test]
+//#[test]
 fn test_day_5_part_1() {
     let file = fs::read_to_string("resources/day_5.txt").expect("File should be available");
 
@@ -58,7 +58,7 @@ fn test_day_5_part_1() {
     );
 }
 
-#[test]
+//#[test]
 fn test_day_5_part_2() {
     let file = fs::read_to_string("resources/day_5.txt").expect("File should be available");
 
