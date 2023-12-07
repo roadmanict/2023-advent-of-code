@@ -1,4 +1,4 @@
-use std::{fs, str::FromStr, vec};
+use std::{fs, vec};
 
 use adventofcode2023::utils::split_whitespace_and_parse_to_usize;
 
@@ -26,7 +26,7 @@ fn test_day_6_part_1() {
     for (i, time) in times.iter().enumerate() {
         let distance = distances[i];
 
-        result = result * calculate(*time, distance);
+        result *= calculate(*time, distance);
     }
 
     assert_eq!(result, 170000);
@@ -56,14 +56,14 @@ fn test_day_6_part_2() {
     for (i, time) in times.iter().enumerate() {
         let distance = distances[i];
 
-        result = result * calculate(*time, distance);
+        result *= calculate(*time, distance);
     }
 
     assert_eq!(result, 20537782);
 }
 
 fn calculate(time: usize, distance: usize) -> usize {
-    let mut speed = 0;
+    let _speed = 0;
 
     let mut times: usize = 0;
 

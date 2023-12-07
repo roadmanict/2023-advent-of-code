@@ -1,4 +1,4 @@
-use std::{fs, ops::Range};
+use std::{fs};
 
 use adventofcode2023::{farm_map::FarmMap, utils::split_whitespace_and_parse_to_usize};
 
@@ -70,7 +70,7 @@ fn test_day_5_part_2() {
 
     let seeds_and_len = split_whitespace_and_parse_to_usize(seeds).expect("Should split and parse");
     let mut seeds: Vec<(usize, usize)> = vec![];
-    for chunk in seeds_and_len.chunks(2).into_iter() {
+    for chunk in seeds_and_len.chunks(2) {
         seeds.push((chunk[0], chunk[0] + chunk[1]));
     }
 

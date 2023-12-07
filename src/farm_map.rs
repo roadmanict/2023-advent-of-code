@@ -1,4 +1,4 @@
-use std::{f32::INFINITY, num::ParseIntError, str::FromStr};
+use std::{num::ParseIntError, str::FromStr};
 
 use thiserror::Error;
 
@@ -15,7 +15,7 @@ impl FarmMap {
     }
 
     pub fn correspond(&self, value: usize) -> Result<usize, FarmMapParseError> {
-        let mut result: Option<usize> = None;
+        let _result: Option<usize> = None;
 
         let mut lines_iter = self.lines.iter();
 
@@ -44,11 +44,11 @@ impl FarmMap {
         &self,
         range: &(usize, usize),
     ) -> Result<Vec<(usize, usize)>, FarmMapParseError> {
-        let mut result: Option<usize> = None;
+        let _result: Option<usize> = None;
 
         let mut lines_iter = self.lines.iter();
 
-        let mut next_line = lines_iter.next();
+        let _next_line = lines_iter.next();
 
         let mut start = range.0;
         let end = range.1;
@@ -81,7 +81,7 @@ impl FarmMap {
                 difference, line.destination_range, line.source_range
             );
 
-            if (line_end < end) {
+            if line_end < end {
                 println!("Line ends before end");
                 ranges.push((start + difference, line_end + difference));
                 start = line_end;
@@ -93,7 +93,7 @@ impl FarmMap {
             println!("result: {:?}", ranges);
         }
 
-        if (ranges.len() == 0) {
+        if ranges.is_empty() {
             return Ok(vec![*range]);
         }
 
@@ -138,7 +138,7 @@ impl TryFrom<Vec<&str>> for FarmMap {
     fn try_from(value: Vec<&str>) -> Result<Self, Self::Error> {
         let mut lines: Vec<FarmMapLine> = vec![];
         for s in value.iter() {
-            let ranges = split_whitespace_and_parse_to_usize(s)?;
+            let _ranges = split_whitespace_and_parse_to_usize(s)?;
 
             lines.push(s.parse()?);
         }
