@@ -1,4 +1,4 @@
-use std::{str::FromStr, num::ParseIntError};
+use std::{num::ParseIntError, str::FromStr};
 
 use thiserror::Error;
 
@@ -22,6 +22,20 @@ pub enum CamelHandType {
     HighCard,
 }
 
+pub struct CamelCard(char);
+
+impl CamelCard {
+    pub fn value(&self) -> usize {
+        todo!()
+    }
+}
+
+impl From<char> for CamelCard {
+    fn from(value: char) -> Self {
+        CamelCard(value)
+    }
+}
+
 impl FromStr for CamelHand {
     type Err = CamelHandParseError;
 
@@ -30,6 +44,7 @@ impl FromStr for CamelHand {
             .split_once(' ')
             .ok_or(CamelHandParseError::InvalidInputError)?;
 
+        let cards: Vec<CamelCard> = hand.chars().map(|c| c.into()).collect();
         todo!()
     }
 }

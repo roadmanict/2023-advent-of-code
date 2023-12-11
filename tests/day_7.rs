@@ -8,6 +8,6 @@ fn test_day_7_part_1() {
 
     for line in file.lines() {
 
-        let camel_hand: CamelHand = line.parse().expect("Should parse");
+        let _camel_hand: CamelHand = line.parse().expect("Should parse");
     }
 }
