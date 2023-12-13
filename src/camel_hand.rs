@@ -9,21 +9,14 @@ use thiserror::Error;
 #[derive(Debug, PartialEq, Ord, Eq)]
 pub struct CamelHand {
     cards: Vec<CamelCard>,
-    first_card: CamelCard,
     pub bid: usize,
     strength: CamelHandType,
 }
 
 impl CamelHand {
-    pub fn new(
-        cards: Vec<CamelCard>,
-        first_card: CamelCard,
-        bid: usize,
-        strength: CamelHandType,
-    ) -> Self {
+    pub fn new(cards: Vec<CamelCard>, bid: usize, strength: CamelHandType) -> Self {
         Self {
             cards,
-            first_card,
             bid,
             strength,
         }
@@ -35,7 +28,7 @@ impl PartialOrd for CamelHand {
         let result = self.strength.partial_cmp(&other.strength)?;
 
         if result == std::cmp::Ordering::Equal {
-            return other.cards.partial_cmp(&self.cards)
+            return other.cards.partial_cmp(&self.cards);
         }
 
         Some(result)
@@ -108,10 +101,6 @@ impl FromStr for CamelHand {
             .chars()
             .map(CamelCard::try_from)
             .collect::<Result<Vec<_>, _>>()?;
-        let first_card = cards
-            .get(0)
-            .ok_or(CamelHandParseError::InvalidInputError)?
-            .to_owned();
 
         let mut card_count = HashMap::new();
 
@@ -142,7 +131,7 @@ impl FromStr for CamelHand {
 
         println!("{:?}", strength);
 
-        Ok(CamelHand::new(cards, first_card, bid.parse()?, strength?))
+        Ok(CamelHand::new(cards, bid.parse()?, strength?))
     }
 }
 
