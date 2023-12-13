@@ -77,7 +77,7 @@ impl TryFrom<char> for CamelCard {
 
     fn try_from(value: char) -> Result<Self, Self::Error> {
         let usize_value: usize = match value {
-            x if x.is_digit(10) => {
+            x if x.is_ascii_digit() => {
                 let raw_value = x
                     .to_digit(10)
                     .ok_or(CamelHandParseError::InvalidInputError)?;
@@ -106,7 +106,7 @@ impl FromStr for CamelHand {
 
         let cards: Vec<CamelCard> = hand
             .chars()
-            .map(|c| CamelCard::try_from(c))
+            .map(CamelCard::try_from)
             .collect::<Result<Vec<_>, _>>()?;
         let first_card = cards
             .get(0)
