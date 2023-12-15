@@ -108,7 +108,7 @@ impl TryFrom<(&str, GameType)> for CamelHand {
         }
 
         let mut counted_cards: Vec<(usize, &CamelCard)> =
-            card_count.into_iter().map(|(_, v)| v).collect::<Vec<_>>();
+            card_count.into_values().collect::<Vec<_>>();
         counted_cards.sort_by(|a, b| b.0.cmp(&a.0));
 
         if joker_count > 0 && joker_count < 5 {
