@@ -4,6 +4,7 @@ pub mod scratch_card;
 pub mod farm_map;
 pub mod utils;
 pub mod camel_hand;
+pub mod network;
 
 pub fn add(left: usize, right: usize) -> usize {
     left + right
